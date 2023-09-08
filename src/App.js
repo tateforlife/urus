@@ -24,7 +24,7 @@ function App() {
                 <i className="fa fa-paper-plane"></i>
                 JOIN <span>TELEGRAM</span>
               </a>
-              <a href="https://google.com" className='app__welcome-button' className='app__welcome-button' onClick={() => console.log('here')}>
+              <a href="https://google.com" className='app__welcome-button' onClick={() => console.log('here')}>
                 <i className="fa fa-unlock"></i>
                 FREE <span>VIP</span> ACCESS
               </a>
@@ -39,19 +39,19 @@ function App() {
           <div className='app__slider-wrapper'>
             <Carousel showThumbs={false} showStatus={false}>
                 <div className='kek'>
-                    <img src={slide} />
-                    <img src={slide} />
-                    <img src={slide} />
+                    <img src={slide} alt="alt" />
+                    <img src={slide} alt="alt" />
+                    <img src={slide} alt="alt" />
                 </div>
                 <div className='kek'>
-                    <img src={slide} />
-                    <img src={slide} />
-                    <img src={slide} />
+                    <img src={slide} alt="alt" />
+                    <img src={slide} alt="alt" />
+                    <img src={slide} alt="alt" />
                 </div>
                 <div className='kek'>
-                    <img src={slide} />
-                    <img src={slide} />
-                    <img src={slide} />
+                    <img src={slide} alt="alt" />
+                    <img src={slide} alt="alt" />
+                    <img src={slide} alt="alt" />
                 </div>
             </Carousel>
           </div>
