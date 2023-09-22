@@ -4,9 +4,58 @@ import money from './money.png';
 import slide from './slide.png';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { useEffect, useState } from 'react'
 import { Carousel } from 'react-responsive-carousel';
 
+const openInNewTab = (url) => {
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+  if (newWindow) newWindow.opener = null
+}
+
+export function useMediaQuery(query) {
+  const getMatches = (query) => {
+    // Prevents SSR issues
+    if (typeof window !== 'undefined') {
+      return window.matchMedia(query).matches
+    }
+    return false
+  }
+
+  const [matches, setMatches] = useState(getMatches(query))
+
+  function handleChange() {
+    setMatches(getMatches(query))
+  }
+
+  useEffect(() => {
+    const matchMedia = window.matchMedia(query)
+
+    // Triggered at the first client-side load and if query changes
+    handleChange()
+
+    // Listen matchMedia
+    if (matchMedia.addListener) {
+      matchMedia.addListener(handleChange)
+    } else {
+      matchMedia.addEventListener('change', handleChange)
+    }
+
+    return () => {
+      if (matchMedia.removeListener) {
+        matchMedia.removeListener(handleChange)
+      } else {
+        matchMedia.removeEventListener('change', handleChange)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query])
+
+  return matches
+}
+
 function App() {
+  const matches = useMediaQuery('(min-width: 1023px)')
+
   return (
     <div className="app">
       <div className='app__gradient'/>
@@ -37,23 +86,72 @@ function App() {
         <section className='app__slider'>
           <h2 className='app__welcome-heading'>OUR <span>MEMBERS</span> REVIEWS</h2>
           <div className='app__slider-wrapper'>
-            <Carousel showThumbs={false} showStatus={false}>
+            {
+              matches ? (
+<Carousel showThumbs={false} showStatus={false}>
                 <div className='kek'>
-                    <img src={slide} alt="alt" />
-                    <img src={slide} alt="alt" />
-                    <img src={slide} alt="alt" />
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
                 </div>
                 <div className='kek'>
-                    <img src={slide} alt="alt" />
-                    <img src={slide} alt="alt" />
-                    <img src={slide} alt="alt" />
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
                 </div>
                 <div className='kek'>
-                    <img src={slide} alt="alt" />
-                    <img src={slide} alt="alt" />
-                    <img src={slide} alt="alt" />
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
                 </div>
             </Carousel>
+              ) : (
+<Carousel showThumbs={false} showStatus={false}>
+                <div className='kek'>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                </div>
+                <div className='kek'>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                </div>
+                <div className='kek'>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                    <div className='slide_wrapper'>
+                      <img src={slide} alt="alt" />
+                    </div>
+                </div>
+            </Carousel>
+              )
+            }
           </div>
         </section>
         <section className='app__banner'>
@@ -62,7 +160,22 @@ function App() {
             <img src={money} className="app__money" alt="money" />
           </div>
         </section>
+        <section className='app__questions'>
+          <h2 className='app__welcome-heading'>HAVE A QUESTION?</h2>
+          <div onClick={() => openInNewTab('https://stackoverflow.com')} className='app__questions-button'>
+            <h4>YES, I WANT <span>“FREE VIP”</span></h4>
+            <h5>Tap here & DM “FREE VIP”</h5>
+          </div>
+        </section>
       </main>
+      <footer>
+        <div className='socials'>
+          <a href="#" class="fa fa-paper-plane"></a>
+          <a href="#" class="fa fa-twitter"></a>
+          <a href="#" class="fa fa-instagram"></a>
+        </div>
+        <div className='copyright'>© Urus Picks, 2023</div>
+      </footer>
     </div>
   );
 }
