@@ -170,9 +170,9 @@ function App() {
       </main>
       <footer>
         <div className='socials'>
-          <a href="#" class="fa fa-paper-plane"></a>
-          <a href="#" class="fa fa-twitter"></a>
-          <a href="#" class="fa fa-instagram"></a>
+          <a href="https://google.com" className="fa fa-paper-plane"> </a>
+          <a href="https://google.com" className="fa fa-twitter"> </a>
+          <a href="https://google.com" className="fa fa-instagram"> </a>
         </div>
         <div className='copyright'>© Urus Picks, 2023</div>
       </footer>
